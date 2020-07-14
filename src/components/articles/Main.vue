@@ -6,13 +6,13 @@
   -->
 
 <template>
-    <div class="container">
-        <router-view></router-view>
-    </div>
+  <div class="container">
+    <router-view />
+  </div>
 </template>
 
 <script>
-    export default {
-        name: 'articles-main'
-    }
+  export default {
+    name: 'ArticlesMain',
+  }
 </script>

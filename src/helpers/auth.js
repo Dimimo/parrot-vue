@@ -5,26 +5,26 @@
  *
  */
 
-const axios = require('axios');
+const axios = require('axios')
 
-export function login(credentials) {
+export function login (credentials) {
     return new Promise((res, rej) => {
         axios.post('/api/auth/v1/login', credentials)
             .then((response) => {
-                res(response.data);
+                res(response.data)
             })
             .catch((err) => {
-                rej(err);
+                rej(err)
             })
-    });
+    })
 }
 
-export function getLocalUser() {
-    const userStr = localStorage.getItem("user");
+export function getLocalUser () {
+    const userStr = localStorage.getItem('user')
 
     if (!userStr) {
-        return null;
+        return null
     }
 
-    return JSON.parse(userStr);
+    return JSON.parse(userStr)
 }

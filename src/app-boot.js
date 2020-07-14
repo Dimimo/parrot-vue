@@ -5,29 +5,26 @@
  *
  */
 
-export function initialize(axios, store, router) {
-
+export function initialize (axios, store, router) {
     router.beforeEach((to, from, next) => {
-        const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-        const currentUser = store.state.currentUser;
+        const requiresAuth = to.matched.some(record => record.meta.requiresAuth)
+        const currentUser = store.state.currentUser
 
         if (requiresAuth && !currentUser) {
-            next("/m/login");
+            next('/m/login')
+        } else if (to.path === '/m/login' && currentUser) {
+            next('/m')
+        } else {
+            next()
         }
-        else if (to.path === '/m/login' && currentUser) {
-            next("/m");
-        }
-        else {
-            next();
-        }
-    });
+    })
 
     axios.interceptors.response.use(null, (error) => {
         if (error.response.status === 401) {
-            store.commit('logout');
-            router.push('/m/login');
+            store.commit('logout')
+            router.push('/m/login')
         }
 
-        return Promise.reject(error);
-    });
+        return Promise.reject(error)
+    })
 }

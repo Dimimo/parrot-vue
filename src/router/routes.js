@@ -1,25 +1,25 @@
-import Home from '../components/Home.vue';
-import Login from '../components/auth/Login.vue';
-import ArticlesMain from '../components/articles/Main';
-import ArticlesList from '../components/articles/List';
-import ArticleNew from '../components/articles/New';
-import ArticleView from '../components/articles/Article';
-import SitesMain from '../components/sites/Main';
-import SitesList from '../components/sites/List';
+import Home from '../components/Home.vue'
+import Login from '../components/auth/Login.vue'
+import ArticlesMain from '../components/articles/Main'
+import ArticlesList from '../components/articles/List'
+import ArticleNew from '../components/articles/New'
+import ArticleView from '../components/articles/Article'
+import SitesMain from '../components/sites/Main'
+import SitesList from '../components/sites/List'
 import SiteCity from '../components/sites/City'
-import SiteView from '../components/sites/Site';
+import SiteView from '../components/sites/Site'
 
 export const routes = [
     {
         path: '/m',
         component: Home,
         meta: {
-            requiresAuth: true
-        }
+            requiresAuth: true,
+        },
     },
     {
         path: '/m/login',
-        component: Login
+        component: Login,
     },
     {
         path: '/m/articles',
@@ -27,9 +27,9 @@ export const routes = [
         children: [
             {
                 path: '/',
-                component: ArticlesList
-            }
-        ]
+                component: ArticlesList,
+            },
+        ],
     },
     {
         path: '/m/article',
@@ -37,13 +37,13 @@ export const routes = [
         children: [
             {
                 path: 'new',
-                component: ArticleNew
+                component: ArticleNew,
             },
             {
                 path: ':id',
-                component: ArticleView
-            }
-        ]
+                component: ArticleView,
+            },
+        ],
     },
     {
         path: '/m/sites',
@@ -51,8 +51,8 @@ export const routes = [
         children: [
             {
                 path: '/',
-                component: SitesList
-            }
+                component: SitesList,
+            },
         ],
     },
     {
@@ -61,12 +61,12 @@ export const routes = [
         children: [
             {
                 path: ':id',
-                component: SiteView
+                component: SiteView,
             },
             {
                 path: 'city/:id',
-                component: SiteCity
-            }
+                component: SiteCity,
+            },
         ],
-    }
-];
+    },
+]

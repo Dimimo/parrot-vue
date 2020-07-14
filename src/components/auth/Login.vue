@@ -6,69 +6,92 @@
   -->
 
 <template>
-    <div class="login row">
-        <div class="col-md-4 col-md-offset-4">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Login</div>
-                <div class="panel-body">
-                    <form @submit.prevent="authenticate">
-                        <div class="form-group row">
-                            <label for="email">Email:</label>
-                            <input type="email" id="email" v-model="form.email" class="form-control" placeholder="Your email">
-                        </div>
-                        <div class="form-group row">
-                            <label for="password">password:</label>
-                            <input type="password" id="password" v-model="form.password" class="form-control" placeholder="Your password">
-                        </div>
-                        <div class="form-group row">
-                            <input type="submit" value="login">
-                        </div>
-                        <div class="form-group row" v-if="authError">
-                            <p class="error" v-if="authError.length !== 0">
-                                {{ authError.response.data.error }}
-                            </p>
-                        </div>
-                    </form>
-                </div>
-            </div>
+  <div class="login row">
+    <div class="col-md-4 col-md-offset-4">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          Login
         </div>
+        <div class="panel-body">
+          <form @submit.prevent="authenticate">
+            <div class="form-group row">
+              <label for="email">Email:</label>
+              <input
+                id="email"
+                v-model="form.email"
+                type="email"
+                class="form-control"
+                placeholder="Your email"
+              >
+            </div>
+            <div class="form-group row">
+              <label for="password">password:</label>
+              <input
+                id="password"
+                v-model="form.password"
+                type="password"
+                class="form-control"
+                placeholder="Your password"
+              >
+            </div>
+            <div class="form-group row">
+              <input
+                type="submit"
+                value="login"
+              >
+            </div>
+            <div
+              v-if="authError"
+              class="form-group row"
+            >
+              <p
+                v-if="authError.length !== 0"
+                class="error"
+              >
+                {{ authError.response.data.error }}
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
-    import {login} from '../../helpers/auth';
+  import { login } from '../../helpers/auth'
 
-    export default {
-        name: "login",
-        data() {
-            return {
-                form: {
-                    email: '',
-                    password: ''
-                },
-                error: null
-            };
+  export default {
+    name: 'Login',
+    data () {
+      return {
+        form: {
+          email: '',
+          password: '',
         },
-        methods: {
-            authenticate() {
-                this.$store.dispatch('login');
-                login(this.$data.form)
-                    .then((res) => {
-                        this.$store.commit("loginSuccess", res);
-                        this.$router.push('/m')
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                        this.$store.commit("loginFailed", {error});
-                    });
-            }
-        },
-        computed: {
-            authError() {
-                return this.$store.getters.authError;
-            }
-        }
-    }
+        error: null,
+      }
+    },
+    computed: {
+      authError () {
+        return this.$store.getters.authError
+      },
+    },
+    methods: {
+      authenticate () {
+        this.$store.dispatch('login')
+        login(this.$data.form)
+          .then((res) => {
+            this.$store.commit('loginSuccess', res)
+            this.$router.push('/m')
+          })
+          .catch((error) => {
+            console.log(error)
+            this.$store.commit('loginFailed', { error })
+          })
+      },
+    },
+  }
 </script>
 
 <style scoped>
