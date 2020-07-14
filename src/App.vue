@@ -1,28 +1,220 @@
+<!--
+  -
+  -  Copyright (c) 2020 Puerto Parrot. Written by Dimitri Mostrey for https// www.puertoparrot.com
+  -  Contact me at admin@puertoparrot.com or admin@puertoparrot.com
+  -
+  -->
+
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <div id="main">
+        <Header></Header>
+        <div id="page-content" class="content">
+            <router-view></router-view>
+        </div>
+    </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+    //import 'bootstrap/dist/css/bootstrap.min.css'
+    import '@fortawesome/fontawesome-free/css/fontawesome.css';
+    import '../public/app.css';
+    import 'jquery/src/jquery.js';
+    import 'bootstrap/dist/js/bootstrap.min.js';
+    import Header from './components/Header';
+    //import Navbar from './components/Navbar';
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+    export default {
+        name: 'main-app',
+        components: {
+            Header,
+            //Navbar
+        },
+        mounted() {
+            console.log('Component mounted.')
+        }
+    }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+    .loader {
+        position: fixed;
+        top: 80px;
+        left: 50%;
+        width: 40px;
+        height: 40px;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+        color: black;
+        background: url('/public/loading.gif') no-repeat rgb(255, 255, 255);
+        background-size: contain;
+    }
+
+    /* adjust body when menu is open */
+    body.slide-active {
+        overflow-x: hidden
+    }
+
+    /*first child of #page-content so it doesn't shift around*/
+    .no-margin-top {
+        margin-top: 0 !important
+    }
+
+    /*wrap the entire page content but not nav inside this div if not a fixed top, don't add any top padding */
+    #page-content {
+        position: relative;
+        padding-top: 70px;
+        left: 0;
+    }
+
+    /* put toggle bars on the left :: not using button */
+    #slide-nav .navbar-toggle {
+        cursor: pointer;
+        position: relative;
+        line-height: 0;
+        float: left;
+        margin: 0;
+        width: 30px;
+        height: 40px;
+        padding: 10px 0 0 0;
+        border: 0;
+        background: transparent;
+    }
+
+    /* icon bar prettyup - optional */
+    #slide-nav .navbar-toggle > .icon-bar {
+        width: 100%;
+        display: block;
+        height: 3px;
+        margin: 5px 0 0 0;
+    }
+
+    #slide-nav .navbar-toggle.slide-active .icon-bar {
+        background: orange
+    }
+
+    .navbar-header {
+        position: relative
+    }
+
+    /* un fix the navbar when active so that all the menu items are accessible */
+    .navbar.navbar-fixed-top.slide-active {
+        position: relative
+    }
+
+    /* screw writing importants and shit, just stick it in max width since these classes are not shared between sizes */
+    @media (max-width: 767px) {
+        #page-content.slide-active {
+            padding-top: 25px;
+        }
+
+        #slide-nav .container {
+            margin: 0 !important;
+            padding: 0 !important;
+            height: 100%;
+        }
+
+        #slide-nav .navbar-header {
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        #slide-nav .navbar.slide-active {
+            position: absolute;
+            width: 80%;
+            top: -1px;
+            z-index: 1000;
+        }
+
+        #slide-nav #slidemenu {
+            background: #f7f7f7;
+            left: -100%;
+            width: 80%;
+            min-width: 0;
+            position: absolute;
+            padding-left: 0;
+            z-index: 2;
+            top: -8px;
+            margin: 0;
+        }
+
+        #slide-nav #slidemenu .navbar-nav {
+            min-width: 0;
+            width: 100%;
+            margin: 0;
+        }
+
+        #slide-nav #slidemenu .navbar-nav .dropdown-menu li a {
+            min-width: 0;
+            width: 80%;
+            white-space: normal;
+        }
+
+        #slide-nav {
+            border-top: 0
+        }
+
+        #slide-nav.navbar-inverse #slidemenu {
+            background: #333
+        }
+
+        /* this is behind the navigation but the navigation is not inside it so that the navigation is accessible and scrolls*/
+        #navbar-height-col {
+            position: fixed;
+            top: 0;
+            height: 100%;
+            bottom: 0;
+            width: 80%;
+            left: -80%;
+            background: #f7f7f7;
+        }
+
+        #navbar-height-col.inverse {
+            background: #333;
+            z-index: 1;
+            border: 0;
+        }
+
+        #slide-nav .navbar-form {
+            width: 100%;
+            margin: 8px 0;
+            text-align: center;
+            overflow: hidden;
+            /*fast clearfixer*/
+        }
+
+        #slide-nav .navbar-form .form-control {
+            text-align: center
+        }
+
+        #slide-nav .navbar-form .btn {
+            width: 100%
+        }
+    }
+
+    @media (min-width: 768px) {
+        #page-content {
+            left: 0 !important;
+        }
+
+        #page-content.slide-active {
+            padding-top: 70px;
+        }
+
+        .navbar.navbar-fixed-top.slide-active {
+            position: fixed;
+        }
+
+        .navbar-header {
+            left: 0 !important;
+        }
+
+        .navbar-nav > li > a {
+            color: #255985 !important;
+        }
+
+        .navbar-nav > li > a.router-link-exact-active {
+            /*font-weight: bold !important;*/
+            color: #102537 !important;
+        }
+    }
 </style>
