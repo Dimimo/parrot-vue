@@ -8,13 +8,13 @@
 const axios = require('axios')
 
 export function login (credentials) {
-    return new Promise((res, rej) => {
+    return new Promise((resolve, reject) => {
         axios.post('/api/auth/v1/login', credentials)
             .then((response) => {
-                res(response.data)
+                resolve(response.data)
             })
             .catch((err) => {
-                rej(err)
+                reject(err)
             })
     })
 }

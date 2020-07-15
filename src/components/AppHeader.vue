@@ -36,6 +36,14 @@
                 Businesses
               </router-link>
             </li>
+            <li class="nav-item">
+              <router-link
+                class="nav-link"
+                to="/m/services"
+              >
+                City Services
+              </router-link>
+            </li>
             <li class="nav-item dropdown">
               <a
                 id="actionsDropdown"
@@ -86,7 +94,6 @@
 </template>
 
 <script>
-  //  require('./navbar-js')
   export default {
     name: 'AppHeader',
     computed: {

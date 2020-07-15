@@ -6,7 +6,13 @@
   -->
 
 <template>
-  <div v-if="site">
+  <div v-if="!site">
+    <img
+      src="/loading.gif"
+      alt=""
+    >
+  </div>
+  <div v-else>
     <div
       v-if="site.picture"
       class="site-img"

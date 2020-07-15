@@ -8,6 +8,10 @@ import SitesMain from '../components/sites/Main'
 import SitesList from '../components/sites/List'
 import SiteCity from '../components/sites/City'
 import SiteView from '../components/sites/Site'
+import ServiceMain from '../components/services/Main'
+import ServiceList from '../components/services/List'
+import ServiceCity from '../components/services/City'
+import ServiceView from '../components/services/Service'
 
 export const routes = [
     {
@@ -66,6 +70,30 @@ export const routes = [
             {
                 path: 'city/:id',
                 component: SiteCity,
+            },
+        ],
+    },
+    {
+        path: '/m/services',
+        component: ServiceMain,
+        children: [
+            {
+                path: '/',
+                component: ServiceList,
+            },
+            {
+                path: 'city/:id',
+                component: ServiceCity,
+            },
+        ],
+    },
+    {
+        path: '/m/service',
+        component: ServiceMain,
+        children: [
+            {
+                path: ':id',
+                component: ServiceView,
             },
         ],
     },

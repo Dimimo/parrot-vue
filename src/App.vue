@@ -13,13 +13,11 @@
 </template>
 
 <script>
-  //  import 'bootstrap/dist/css/bootstrap.min.css'
   import '@fortawesome/fontawesome-free/css/fontawesome.css'
   import '../public/app.css'
   import 'jquery/src/jquery.js'
   import 'bootstrap/dist/js/bootstrap.min.js'
   import AppHeader from './components/AppHeader'
-  //  import Navbar from './components/Navbar';
 
   export default {
     name: 'App',
@@ -29,3 +27,17 @@
     },
   }
 </script>
+<style>
+  .loader {
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    width: 124px;
+    height: 124px;
+    z-index: 99999;
+    transform: translate(-50%, -50%);
+    color: black;
+    background: url('/loading.gif') no-repeat rgb(255, 255, 255);
+    background-size: contain;
+  }
+</style>

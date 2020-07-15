@@ -12,6 +12,7 @@ export default {
         auth_error: null,
         articles: [],
         sites: [],
+        services: [],
         pagination: {},
     },
     getters: {
@@ -35,6 +36,9 @@ export default {
         },
         sites (state) {
             return state.sites
+        },
+        services (state) {
+            return state.services
         },
     },
     mutations: {
@@ -70,6 +74,9 @@ export default {
         },
         updateSites (state, payload) {
             state.sites = payload
+        },
+        updateServices (state, payload) {
+            state.services = payload
         },
     },
     actions: {
@@ -139,6 +146,56 @@ export default {
                     console.log(error)
                 })
             }
+        },
+        getServices (context, page = 1) {
+            let items = sessionStorage.getItem('services-page-' + page)
+            if (items !== null) {
+                items = JSON.parse(items)
+                context.commit('updatePagination', items.meta)
+                context.commit('updateServices', items.data)
+                context.commit('updateLoading', false)
+            } else {
+                context.commit('updateLoading', true)
+                context.commit('updateServices', [])
+                let url = ''
+                page === 1 ? url = URL + 'services' : url = URL + 'services?page=' + page
+                axios.get(url).then((response) => {
+                    context.commit('updatePagination', response.data.meta)
+                    context.commit('updateServices', response.data.data)
+                    context.commit('updateLoading', false)
+                    sessionStorage.setItem('services-page-' + page, JSON.stringify(response.data))
+                }).catch((error) => {
+                    console.log(error)
+                })
+            }
+        },
+        getServicesCity (context, city, page = 1) {
+            let items = sessionStorage.getItem('services-city-page-' + city + '-' + page)
+            if (items !== null) {
+                items = JSON.parse(items)
+                context.commit('updatePagination', items.meta)
+                context.commit('updateServices', items.data)
+                context.commit('updateLoading', false)
+            } else {
+                context.commit('updateLoading', true)
+                context.commit('updateServices', [])
+                let url = ''
+                page === 1 ? url = URL + 'services/city/' + city : url = URL + 'services/city/' + city + '?page=' + page
+                axios.get(url).then((response) => {
+                    context.commit('updatePagination', response.data.meta)
+                    context.commit('updateServices', response.data.data)
+                    context.commit('updateLoading', false)
+                    sessionStorage.setItem('services-city-page-' + city + '-' + page, JSON.stringify(response.data))
+                }).catch((error) => {
+                    console.log(error)
+                })
+            }
+        },
+        startLoading (context) {
+            context.commit('updateLoading', true)
+        },
+        stopLoading (context) {
+            context.commit('updateLoading', false)
         },
     },
 }

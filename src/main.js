@@ -26,6 +26,7 @@ initialize(axios, store, router)
 new Vue({
     router,
     store,
+    URL: 'https://parrot.app/api/v1/',
 
     components: {
         App,

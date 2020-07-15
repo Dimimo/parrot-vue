@@ -78,7 +78,7 @@
       let page = sessionStorage.getItem('sites-page-' + city)
       if (page !== null) {
         this.page = page = JSON.parse(page)
-      } else if (page === null) {
+      } else {
         this.page = page = 1
       }
       sessionStorage.setItem('sites-page', JSON.stringify(page))
