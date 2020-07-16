@@ -7,16 +7,21 @@
 
 <template>
   <div>
-    <app-header />
-    <router-view />
+    <v-app>
+      <v-content>
+        <app-header />
+        <router-view />
+      </v-content>
+    </v-app>
   </div>
 </template>
 
 <script>
-  import '@fortawesome/fontawesome-free/css/fontawesome.css'
-  import '../public/app.css'
-  import 'jquery/src/jquery.js'
-  import 'bootstrap/dist/js/bootstrap.min.js'
+  //  import '@fortawesome/fontawesome-free/css/fontawesome.css'
+  //  import '../public/app.css'
+  //  import 'jquery/src/jquery.js'
+  //  import 'bootstrap/dist/js/bootstrap.min.js'
+  //  import 'https://static.puertoparrot.com/css/app.css'
   import AppHeader from './components/AppHeader'
 
   export default {
@@ -37,7 +42,7 @@
     z-index: 99999;
     transform: translate(-50%, -50%);
     color: black;
-    background: url('/loading.gif') no-repeat rgb(255, 255, 255);
+    background: url('/loading.gif') no-repeat;
     background-size: contain;
   }
 </style>

@@ -6,7 +6,7 @@
   -->
 
 <template>
-  <div class="container">
+  <div class="container-fluid my-3">
     <router-view />
   </div>
 </template>

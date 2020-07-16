@@ -57,6 +57,10 @@ export const routes = [
                 path: '/',
                 component: SitesList,
             },
+            {
+                path: 'city/:id',
+                component: SiteCity,
+            },
         ],
     },
     {
@@ -66,10 +70,6 @@ export const routes = [
             {
                 path: ':id',
                 component: SiteView,
-            },
-            {
-                path: 'city/:id',
-                component: SiteCity,
             },
         ],
     },

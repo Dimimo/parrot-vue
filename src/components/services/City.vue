@@ -75,6 +75,14 @@
       pagination () {
         return this.$store.getters.pagination
       },
+      city: {
+        get: function () {
+          return this.$store.getters.city
+        },
+        set: function (city) {
+          return this.$store.dispatch('getCity', city)
+        },
+      },
       current: {
         get: function () {
           return this.$store.getters.pagination.current
@@ -89,6 +97,7 @@
     },
     mounted () {
       const city = this.$route.params.id
+      this.$store.dispatch('getCity', city)
       let page = sessionStorage.getItem('services-page-' + city)
       if (page) {
         this.page = page = JSON.parse(page)
@@ -96,16 +105,17 @@
         page = 1
       }
       sessionStorage.setItem('services-page', JSON.stringify(page))
-      return this.$store.dispatch('getServicesCity', city, page)
+      return this.$store.dispatch('getServicesCity', page)
     },
     methods: {
       getResults (page = 1) {
         const city = this.$route.params.id
+        this.$store.dispatch('getCity', city)
         if (!page) {
           page = 1
         }
         sessionStorage.setItem('services-page-' + city, JSON.stringify(page))
-        return this.$store.dispatch('getServicesCity', city, page)
+        return this.$store.dispatch('getServicesCity', page)
       },
     },
   }

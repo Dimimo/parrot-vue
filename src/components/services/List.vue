@@ -15,7 +15,6 @@
       :length="total"
       :total-visible="7"
       :circle="true"
-      :light="true"
       @input="getResults"
     />
     <table class="table">

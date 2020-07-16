@@ -1,7 +1,6 @@
 import { getLocalUser } from '../helpers/auth'
 import axios from 'axios'
 
-const URL = 'https://parrot.app/api/v1/'
 const user = getLocalUser()
 
 export default {
@@ -10,6 +9,7 @@ export default {
         isLoggedIn: !!user,
         loading: false,
         auth_error: null,
+        city: 0,
         articles: [],
         sites: [],
         services: [],
@@ -30,6 +30,9 @@ export default {
         },
         pagination (state) {
             return state.pagination
+        },
+        city (state) {
+            return state.city
         },
         articles (state) {
             return state.articles
@@ -69,6 +72,9 @@ export default {
         updatePagination (state, payload) {
             state.pagination = payload
         },
+        updateCity (state, payload) {
+            state.city = payload
+        },
         updateArticles (state, payload) {
             state.articles = payload
         },
@@ -83,6 +89,9 @@ export default {
         login (context) {
             context.commit('login')
         },
+        getCity (context, city) {
+            context.commit('updateCity', city)
+        },
         getArticles (context, page = 1) {
             let items = sessionStorage.getItem('articles-page-' + page)
             if (items !== null) {
@@ -93,7 +102,7 @@ export default {
             } else {
                 context.commit('updateLoading', true)
                 let url = ''
-                page === 1 ? url = URL + 'articles' : url = URL + 'articles?page=' + page
+                page === 1 ? url = 'articles' : url = 'articles?page=' + page
                 axios.get(url).then((response) => {
                     context.commit('updatePagination', response.data.meta)
                     context.commit('updateArticles', response.data.data)
@@ -114,7 +123,7 @@ export default {
             } else {
                 context.commit('updateLoading', true)
                 let url = ''
-                page === 1 ? url = URL + 'sites' : url = URL + 'sites?page=' + page
+                page === 1 ? url = 'sites' : url = 'sites?page=' + page
                 axios.get(url).then((response) => {
                     context.commit('updatePagination', response.data.meta)
                     context.commit('updateSites', response.data.data)
@@ -125,7 +134,9 @@ export default {
                 })
             }
         },
-        getSitesCity (context, city, page = 1) {
+        getSitesCity (context, page = 1) {
+            const city = this.state.city
+            context.commit('updateCity', city)
             let items = sessionStorage.getItem('sites-city-page-' + city + '-' + page)
             if (items !== null) {
                 items = JSON.parse(items)
@@ -136,7 +147,7 @@ export default {
                 context.commit('updateLoading', true)
                 context.commit('updateSites', [])
                 let url = ''
-                page === 1 ? url = URL + 'sites/city/' + city : url = URL + 'sites/city/' + city + '?page=' + page
+                page === 1 ? url = 'sites/city/' + city : url = 'sites/city/' + city + '?page=' + page
                 axios.get(url).then((response) => {
                     context.commit('updatePagination', response.data.meta)
                     context.commit('updateSites', response.data.data)
@@ -158,7 +169,7 @@ export default {
                 context.commit('updateLoading', true)
                 context.commit('updateServices', [])
                 let url = ''
-                page === 1 ? url = URL + 'services' : url = URL + 'services?page=' + page
+                page === 1 ? url = 'services' : url = 'services?page=' + page
                 axios.get(url).then((response) => {
                     context.commit('updatePagination', response.data.meta)
                     context.commit('updateServices', response.data.data)
@@ -169,7 +180,9 @@ export default {
                 })
             }
         },
-        getServicesCity (context, city, page = 1) {
+        getServicesCity (context, page = 1) {
+            const city = this.state.city
+            context.commit('updateCity', city)
             let items = sessionStorage.getItem('services-city-page-' + city + '-' + page)
             if (items !== null) {
                 items = JSON.parse(items)
@@ -180,7 +193,7 @@ export default {
                 context.commit('updateLoading', true)
                 context.commit('updateServices', [])
                 let url = ''
-                page === 1 ? url = URL + 'services/city/' + city : url = URL + 'services/city/' + city + '?page=' + page
+                page === 1 ? url = 'services/city/' + city : url = 'services/city/' + city + '?page=' + page
                 axios.get(url).then((response) => {
                     context.commit('updatePagination', response.data.meta)
                     context.commit('updateServices', response.data.data)

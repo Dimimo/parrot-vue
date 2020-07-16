@@ -40,7 +40,7 @@
             <td>{{ site.name }}</td>
             <td>{{ site.description }}</td>
             <td>
-              <router-link :to="`/m/sites/${site.id}`">
+              <router-link :to="`/m/site/${site.id}`">
                 View
               </router-link>
             </td>
@@ -63,7 +63,7 @@
   export default {
     name: 'List',
     data: function () {
-      return { page: null }
+      return { page: 1 }
     },
     computed: {
       sites () {
@@ -75,6 +75,7 @@
     },
     mounted () {
       const city = this.$route.params.id
+      this.$store.dispatch('getCity', city)
       let page = sessionStorage.getItem('sites-page-' + city)
       if (page !== null) {
         this.page = page = JSON.parse(page)
@@ -82,16 +83,17 @@
         this.page = page = 1
       }
       sessionStorage.setItem('sites-page', JSON.stringify(page))
-      return this.$store.dispatch('getSitesCity', city)
+      return this.$store.dispatch('getSitesCity', page)
     },
     methods: {
       getResults (page = 1) {
         const city = this.$route.params.id
+        this.$store.dispatch('getCity', city)
         if (page === null) {
           page = 1
         }
         sessionStorage.setItem('sites-page-' + city, JSON.stringify(page))
-        return this.$store.dispatch('getSitesCity', city, page)
+        return this.$store.dispatch('getSitesCity', page)
       },
     },
   }
