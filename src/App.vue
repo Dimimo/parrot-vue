@@ -14,7 +14,6 @@
           class="mx-auto"
           :loading="this.$store.getters.isLoading"
           :transition="transition"
-          :max-height="400"
           type="table"
         >
           <router-view />

@@ -113,6 +113,22 @@ export default {
                 })
             }
         },
+        getArticle (context, id) {
+            let article = sessionStorage.getItem('article-' + id)
+            if (article !== null) {
+                article = JSON.parse(article)
+                context.commit('updateArticles', article)
+            } else {
+                context.commit('updateLoading', true)
+                axios.get('article/' + id).then((response) => {
+                    context.commit('updateArticles', response.data.data)
+                    context.commit('updateLoading', false)
+                    sessionStorage.setItem('article-' + id, JSON.stringify(response.data.data))
+                }).catch((error) => {
+                    console.log(error)
+                })
+            }
+        },
         getSites (context, page = 1) {
             let items = sessionStorage.getItem('sites-page-' + page)
             if (items !== null) {

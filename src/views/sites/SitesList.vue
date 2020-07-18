@@ -10,10 +10,13 @@
     <template v-if="loading">
       <div class="loader" />
     </template>
-    <pagination
-      :data="pagination"
-      :limit="7"
-      @pagination-change-page="getResults"
+    <v-pagination
+      v-model="page"
+      :length="total"
+      :total-visible="7"
+      :circle="true"
+      :light="true"
+      @input="getResults"
     />
     <table class="table">
       <thead>
@@ -53,14 +56,14 @@
         </template>
       </tbody>
     </table>
-    <pagination
-      :data="pagination"
-      :limit="7"
-      @pagination-change-page="getResults"
-    >
-      <span slot="prev-nav">&lt; Previous</span>
-      <span slot="next-nav">Next &gt;</span>
-    </pagination>
+    <v-pagination
+      v-model="page"
+      :length="total"
+      :total-visible="7"
+      :circle="true"
+      :light="true"
+      @input="getResults"
+    />
   </div>
 </template>
 
@@ -74,8 +77,8 @@
       sites () {
         return this.$store.getters.sites
       },
-      pagination () {
-        return this.$store.getters.pagination
+      total () {
+        return this.$store.getters.pagination.last_page
       },
       loading () {
         return this.$store.getters.isLoading

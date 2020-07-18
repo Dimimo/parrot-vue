@@ -76,17 +76,6 @@
       services () {
         return this.$store.getters.services
       },
-      pagination () {
-        return this.$store.getters.pagination
-      },
-      current: {
-        get: function () {
-          return this.$store.getters.pagination.current
-        },
-        set: function (page) {
-          return this.$store.dispatch('getServices', page)
-        },
-      },
       total () {
         return this.$store.getters.pagination.last_page
       },
