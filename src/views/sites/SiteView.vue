@@ -50,7 +50,7 @@
   const URL = 'https://parrot.app/api/v1/'
 
   export default {
-    name: 'SitesView',
+    name: 'SiteView',
     data () {
       return {
         site: null,

@@ -68,7 +68,7 @@
 
 <script>
   export default {
-    name: 'Services',
+    name: 'ServicesList',
     data: function () {
       return { page: 1 }
     },

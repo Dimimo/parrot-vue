@@ -7,10 +7,7 @@
 
 <template>
   <div>
-    <h2 v-if="sites.length > 0">
-      {{ sites[0].city.name }}
-    </h2>
-    <template v-if="this.$store.getters.isLoading">
+    <template v-if="loading">
       <div class="loader" />
     </template>
     <pagination
@@ -21,6 +18,7 @@
     <table class="table">
       <thead>
         <tr>
+          <th>City</th>
           <th>Name</th>
           <th>Description</th>
           <th>Actions</th>
@@ -39,6 +37,11 @@
             v-for="site in sites"
             :key="site.id"
           >
+            <td>
+              <router-link :to="`/m/sites/city/${site.city.id}`">
+                {{ site.city.name }}
+              </router-link>
+            </td>
             <td>{{ site.name }}</td>
             <td>{{ site.description }}</td>
             <td>
@@ -63,7 +66,7 @@
 
 <script>
   export default {
-    name: 'List',
+    name: 'SitesList',
     data: function () {
       return { page: 1 }
     },
@@ -74,28 +77,27 @@
       pagination () {
         return this.$store.getters.pagination
       },
+      loading () {
+        return this.$store.getters.isLoading
+      },
     },
     mounted () {
-      const city = this.$route.params.id
-      this.$store.dispatch('getCity', city)
-      let page = sessionStorage.getItem('sites-page-' + city)
+      let page = sessionStorage.getItem('sites-page')
       if (page !== null) {
         this.page = page = JSON.parse(page)
       } else {
         this.page = page = 1
       }
       sessionStorage.setItem('sites-page', JSON.stringify(page))
-      return this.$store.dispatch('getSitesCity', page)
+      return this.$store.dispatch('getSites', this.page)
     },
     methods: {
       getResults (page = 1) {
-        const city = this.$route.params.id
-        this.$store.dispatch('getCity', city)
         if (page === null) {
           page = 1
         }
-        sessionStorage.setItem('sites-page-' + city, JSON.stringify(page))
-        return this.$store.dispatch('getSitesCity', page)
+        sessionStorage.setItem('sites-page', JSON.stringify(page))
+        return this.$store.dispatch('getSites', page)
       },
     },
   }

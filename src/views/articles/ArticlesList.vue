@@ -93,7 +93,7 @@
 
 <script>
   export default {
-    name: 'Articles',
+    name: 'ArticlesList',
     data: function () {
       return { page: 1, category: [] }
     },

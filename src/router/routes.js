@@ -1,17 +1,17 @@
-import Home from '../components/Home.vue'
-import Login from '../components/auth/Login.vue'
-import ArticlesMain from '../components/articles/Main'
-import ArticlesList from '../components/articles/List'
-import ArticleNew from '../components/articles/New'
-import ArticleView from '../components/articles/Article'
-import SitesMain from '../components/sites/Main'
-import SitesList from '../components/sites/List'
-import SiteCity from '../components/sites/City'
-import SiteView from '../components/sites/Site'
-import ServiceMain from '../components/services/Main'
-import ServiceList from '../components/services/List'
-import ServiceCity from '../components/services/City'
-import ServiceView from '../components/services/Service'
+import Home from '../views/Home.vue'
+import Login from '../views/auth/Login.vue'
+import ArticlesMain from '../views/articles/ArticlesMain'
+import ArticlesList from '../views/articles/ArticlesList'
+import ArticleNew from '../views/articles/New'
+import ArticleView from '../views/articles/ArticleView'
+import SitesMain from '../views/sites/SitesMain'
+import SitesList from '../views/sites/SitesList'
+import SitesCity from '../views/sites/SitesCity'
+import SiteView from '../views/sites/SiteView'
+import ServiceMain from '../views/services/ServicesMain'
+import ServicesList from '../views/services/ServicesList'
+import ServicesCity from '../views/services/ServicesCity'
+import ServiceView from '../views/services/ServiceView'
 
 export const routes = [
     {
@@ -59,7 +59,7 @@ export const routes = [
             },
             {
                 path: 'city/:id',
-                component: SiteCity,
+                component: SitesCity,
             },
         ],
     },
@@ -79,11 +79,11 @@ export const routes = [
         children: [
             {
                 path: '/',
-                component: ServiceList,
+                component: ServicesList,
             },
             {
                 path: 'city/:id',
-                component: ServiceCity,
+                component: ServicesCity,
             },
         ],
     },

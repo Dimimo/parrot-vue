@@ -31,7 +31,7 @@
   //  import 'bootstrap/dist/js/bootstrap.min.js'
   //  import 'https://static.puertoparrot.com/css/app.css'
   //  import AppHeader from './components/AppHeader'
-  import TheHeader from './components/TheHeader'
+  import TheHeader from './views/TheHeader'
 
   export default {
     name: 'App',

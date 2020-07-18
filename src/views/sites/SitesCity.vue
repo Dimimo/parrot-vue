@@ -7,7 +7,10 @@
 
 <template>
   <div>
-    <template v-if="loading">
+    <h2 v-if="sites.length > 0">
+      {{ sites[0].city.name }}
+    </h2>
+    <template v-if="this.$store.getters.isLoading">
       <div class="loader" />
     </template>
     <pagination
@@ -18,7 +21,6 @@
     <table class="table">
       <thead>
         <tr>
-          <th>City</th>
           <th>Name</th>
           <th>Description</th>
           <th>Actions</th>
@@ -37,11 +39,6 @@
             v-for="site in sites"
             :key="site.id"
           >
-            <td>
-              <router-link :to="`/m/sites/city/${site.city.id}`">
-                {{ site.city.name }}
-              </router-link>
-            </td>
             <td>{{ site.name }}</td>
             <td>{{ site.description }}</td>
             <td>
@@ -66,7 +63,7 @@
 
 <script>
   export default {
-    name: 'Sites',
+    name: 'SitesCity',
     data: function () {
       return { page: 1 }
     },
@@ -77,27 +74,28 @@
       pagination () {
         return this.$store.getters.pagination
       },
-      loading () {
-        return this.$store.getters.isLoading
-      },
     },
     mounted () {
-      let page = sessionStorage.getItem('sites-page')
+      const city = this.$route.params.id
+      this.$store.dispatch('getCity', city)
+      let page = sessionStorage.getItem('sites-page-' + city)
       if (page !== null) {
         this.page = page = JSON.parse(page)
       } else {
         this.page = page = 1
       }
       sessionStorage.setItem('sites-page', JSON.stringify(page))
-      return this.$store.dispatch('getSites', this.page)
+      return this.$store.dispatch('getSitesCity', page)
     },
     methods: {
       getResults (page = 1) {
+        const city = this.$route.params.id
+        this.$store.dispatch('getCity', city)
         if (page === null) {
           page = 1
         }
-        sessionStorage.setItem('sites-page', JSON.stringify(page))
-        return this.$store.dispatch('getSites', page)
+        sessionStorage.setItem('sites-page-' + city, JSON.stringify(page))
+        return this.$store.dispatch('getSitesCity', page)
       },
     },
   }

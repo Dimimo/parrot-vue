@@ -81,7 +81,7 @@
 
 <script>
   export default {
-    name: 'List',
+    name: 'ServicesCity',
     data: function () {
       return { page: 1 }
     },
