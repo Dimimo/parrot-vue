@@ -3,12 +3,14 @@
 import Vue from 'vue'
 import Vuetify, {
     VPagination,
+    VMenu,
 } from 'vuetify/lib'
 //  import 'vuetify/dist/vuetify.min.css'
 
 Vue.use(Vuetify, {
     components: {
         VPagination,
+        VMenu,
     },
     directives: {},
 })

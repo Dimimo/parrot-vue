@@ -7,11 +7,7 @@
 
 <template>
   <div class="container-fluid my-3">
-    <div class="card">
-      <div class="card-body">
-        <router-view />
-      </div>
-    </div>
+    <router-view />
   </div>
 </template>
 

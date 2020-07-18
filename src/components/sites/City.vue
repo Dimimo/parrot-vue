@@ -7,7 +7,9 @@
 
 <template>
   <div>
-    <h2>City</h2>
+    <h2 v-if="sites.length > 0">
+      {{ sites[0].city.name }}
+    </h2>
     <template v-if="this.$store.getters.isLoading">
       <div class="loader" />
     </template>

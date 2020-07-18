@@ -9,8 +9,16 @@
   <div>
     <v-app>
       <v-content>
-        <app-header />
-        <router-view />
+        <the-header />
+        <v-skeleton-loader
+          class="mx-auto"
+          :loading="this.$store.getters.isLoading"
+          :transition="transition"
+          :max-height="400"
+          type="table"
+        >
+          <router-view />
+        </v-skeleton-loader>
       </v-content>
     </v-app>
   </div>
@@ -22,27 +30,19 @@
   //  import 'jquery/src/jquery.js'
   //  import 'bootstrap/dist/js/bootstrap.min.js'
   //  import 'https://static.puertoparrot.com/css/app.css'
-  import AppHeader from './components/AppHeader'
+  //  import AppHeader from './components/AppHeader'
+  import TheHeader from './components/TheHeader'
 
   export default {
     name: 'App',
-    components: { AppHeader },
+    components: {
+      TheHeader,
+    },
+    data: () => ({
+      transition: 'scale-transition',
+    }),
     mounted () {
       console.log('Component mounted.')
     },
   }
 </script>
-<style>
-  .loader {
-    position: fixed;
-    top: 80px;
-    left: 50%;
-    width: 124px;
-    height: 124px;
-    z-index: 99999;
-    transform: translate(-50%, -50%);
-    color: black;
-    background: url('/loading.gif') no-repeat;
-    background-size: contain;
-  }
-</style>
