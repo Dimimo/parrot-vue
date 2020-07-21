@@ -7,9 +7,6 @@
 
 <template>
   <div>
-    <template v-if="loading">
-      <div class="loader" />
-    </template>
     <v-pagination
       v-model="page"
       :length="total"

@@ -10,10 +10,14 @@
     <template v-if="loading">
       <div class="loader" />
     </template>
-    <pagination
-      :data="pagination"
-      :limit="7"
-      @pagination-change-page="getResults"
+    <v-pagination
+      v-model="page"
+      class="mb-8"
+      :length="total"
+      :total-visible="7"
+      :circle="true"
+      :light="true"
+      @input="getResults"
     />
     <template v-if="!articles.length">
       <p class="list-item">
@@ -72,22 +76,27 @@
             <span class="smaller-90 darkgrey">({{ article["wordCount"] }} words, {{ article["picCount"] }})</span>
           </p>
           <div>
-            <strong>Categories: </strong> <span
+            <strong>Categories: </strong>
+            <span
               v-for="cat in article.categories"
               :key="cat.id"
-            ><u>{{ cat.name }}</u>&nbsp;</span>
+              class="text-decoration-underline mx-1"
+            >
+              {{ cat.name }}
+            </span>
           </div>
         </div>
       </div>
     </template>
-    <pagination
-      :data="pagination"
-      :limit="7"
-      @pagination-change-page="getResults"
-    >
-      <span slot="prev-nav">&lt; Previous</span>
-      <span slot="next-nav">Next &gt;</span>
-    </pagination>
+    <v-pagination
+      v-model="page"
+      class="mt-8"
+      :length="total"
+      :total-visible="7"
+      :circle="true"
+      :light="true"
+      @input="getResults"
+    />
   </div>
 </template>
 
@@ -95,7 +104,7 @@
   export default {
     name: 'ArticlesList',
     data: function () {
-      return { page: 1, category: [] }
+      return { page: 1 }
     },
     computed: {
       articles () {
@@ -103,6 +112,9 @@
       },
       pagination () {
         return this.$store.getters.pagination
+      },
+      total () {
+        return this.$store.getters.pagination.last_page
       },
       loading () {
         return this.$store.getters.isLoading

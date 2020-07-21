@@ -4,6 +4,8 @@ import Vue from 'vue'
 import Vuetify, {
     VPagination,
     VMenu,
+    VData,
+    VDataTable,
 } from 'vuetify/lib'
 //  import 'vuetify/dist/vuetify.min.css'
 
@@ -11,6 +13,8 @@ Vue.use(Vuetify, {
     components: {
         VPagination,
         VMenu,
+        VDataTable,
+        VData,
     },
     directives: {},
 })

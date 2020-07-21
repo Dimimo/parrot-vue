@@ -14,6 +14,8 @@ export default {
         sites: [],
         services: [],
         pagination: {},
+        search: '',
+        options: {},
     },
     getters: {
         isLoading (state) {
@@ -30,6 +32,12 @@ export default {
         },
         pagination (state) {
             return state.pagination
+        },
+        search (state) {
+            return state.search
+        },
+        options (state) {
+            return state.options
         },
         city (state) {
             return state.city
@@ -72,6 +80,12 @@ export default {
         updatePagination (state, payload) {
             state.pagination = payload
         },
+        updateSearch (state, payload) {
+            state.search = payload
+        },
+        updateOptions (state, payload) {
+            state.options = payload
+        },
         updateCity (state, payload) {
             state.city = payload
         },
@@ -91,6 +105,12 @@ export default {
         },
         getCity (context, city) {
             context.commit('updateCity', city)
+        },
+        setSearch (context, search) {
+            context.commit('updateSearch', search)
+        },
+        setOptions (context, options) {
+            context.commit('updateOptions', options)
         },
         getArticles (context, page = 1) {
             let items = sessionStorage.getItem('articles-page-' + page)
@@ -182,11 +202,12 @@ export default {
                 context.commit('updateServices', items.data)
                 context.commit('updateLoading', false)
             } else {
+                const options = context.getters.options
                 context.commit('updateLoading', true)
                 context.commit('updateServices', [])
                 let url = ''
                 page === 1 ? url = 'services' : url = 'services?page=' + page
-                axios.get(url).then((response) => {
+                axios.get(url, { params: options }).then((response) => {
                     context.commit('updatePagination', response.data.meta)
                     context.commit('updateServices', response.data.data)
                     context.commit('updateLoading', false)

@@ -10,6 +10,7 @@ import SitesCity from '../views/sites/SitesCity'
 import SiteView from '../views/sites/SiteView'
 import ServiceMain from '../views/services/ServicesMain'
 import ServicesList from '../views/services/ServicesList'
+import ServicesDataTable from '../views/services/ServicesDataTable'
 import ServicesCity from '../views/services/ServicesCity'
 import ServiceView from '../views/services/ServiceView'
 
@@ -84,6 +85,10 @@ export const routes = [
             {
                 path: 'city/:id',
                 component: ServicesCity,
+            },
+            {
+                path: 'data',
+                component: ServicesDataTable,
             },
         ],
     },

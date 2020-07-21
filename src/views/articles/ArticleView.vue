@@ -7,32 +7,10 @@
 
 <template>
   <div>
-    <div class="article-img">
-      <img
-        :src="article.picture"
-        alt=""
-      >
+    <div class="text-h4 mb-10">
+      {{ article.title }}
     </div>
-    <div class="article-info">
-      <table class="table">
-        <tr>
-          <td class="bigger-200">
-            {{ article.title }}
-          </td>
-        </tr>
-        <tr>
-          <td class="bigger-140">
-            {{ article.description }}
-          </td>
-        </tr>
-        <tr>
-          <td><span v-html="article.body" /></td>
-        </tr>
-      </table>
-      <router-link to="/m/articles">
-        Back to articles
-      </router-link>
-    </div>
+    <span v-html="article.body" />
   </div>
 </template>
 

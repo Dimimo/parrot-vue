@@ -7,9 +7,11 @@
 
 <template>
   <div>
-    <template v-if="loading">
-      <div class="loader" />
-    </template>
+    <div class="h6">
+      <router-link :to="`/m/services/data`">
+        View datatable instead
+      </router-link>
+    </div>
     <v-pagination
       v-model="page"
       :length="total"
