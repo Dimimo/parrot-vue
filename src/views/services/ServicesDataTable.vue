@@ -19,17 +19,7 @@
       </v-col>
     </v-row>
     <v-spacer />
-    <v-data-table
-      :headers="headers"
-      :search="this.$store.getters.search"
-      :items="services"
-      :items-per-page="itemsPerPage"
-      :page.sync="page"
-      :options.sync="options"
-      :loading="loading"
-      class="elevation-3"
-      hide-default-footer
-    />
+    <services-table :headers="headers" />
     <div class="text-center pt-2">
       <v-pagination
         v-model="page"
@@ -43,8 +33,13 @@
 </template>
 
 <script>
+  //  import {mapGetters} from 'vuex'
+  import ServicesTable from '../../components/ServicesTable'
   export default {
     name: 'ServiceDataTable',
+    components: {
+      ServicesTable,
+    },
     data: function () {
       return {
         page: 1,
@@ -82,6 +77,12 @@
       }
     },
     computed: {
+      itemsPerPage () {
+        return this.$store.getters.pagination.per_page
+      },
+      loading () {
+        return this.$store.getters.isLoading
+      },
       search: {
         get: function () {
           return this.$store.getters.search
@@ -95,6 +96,7 @@
           return this.$store.getters.options
         },
         set: function (options) {
+          console.log(options)
           return this.$store.dispatch('setOptions', options)
         },
       }, */
@@ -104,24 +106,19 @@
       total () {
         return this.$store.getters.pagination.last_page
       },
-      itemsPerPage () {
-        return this.$store.getters.pagination.per_page
-      },
-      loading () {
-        return this.$store.getters.isLoading
-      },
     },
-    watch: {
+    /* watch: {
       options: {
         handler () {
-          console.log(this.options)
           this.$store.dispatch('setOptions', this.options)
-          this.getResults(this.page).then(data => { return data },
+          //  this.getResults(this.page).then(data => { return data }),
+          this.getResults().then(() => {
+            this.options = this.$store.getters.options
+          },
           )
         },
-        deep: true,
       },
-    },
+    }, */
     mounted () {
       let page = sessionStorage.getItem('services-page')
       if (page !== null) {
@@ -130,7 +127,7 @@
         this.page = page = 1
       }
       sessionStorage.setItem('services-page', JSON.stringify(page))
-      this.$store.dispatch('setOptions', this.options)
+      this.$store.commit('updateOptions', this.options)
       return this.$store.dispatch('getServices', this.page)
     },
     methods: {
@@ -144,7 +141,7 @@
       },
       getSearchResults (search = '') {
         if (search !== '') {
-          return this.$store.dispatch('getSearch', search)
+          return this.$store.dispatch('setSearch', search)
         }
       },
     },

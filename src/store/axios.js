@@ -52,7 +52,7 @@ export default {
             return state.services
         },
     },
-    mutations: {
+    mutations: { // commit(state) method, synchronous
         updateLoading (state, payload) {
             state.loading = payload
         },
@@ -99,7 +99,7 @@ export default {
             state.services = payload
         },
     },
-    actions: {
+    actions: { //   dispatch(context) method, asynchronous
         login (context) {
             context.commit('login')
         },
@@ -202,12 +202,12 @@ export default {
                 context.commit('updateServices', items.data)
                 context.commit('updateLoading', false)
             } else {
-                const options = context.getters.options
+                //  const options = context.getters.options
                 context.commit('updateLoading', true)
                 context.commit('updateServices', [])
                 let url = ''
                 page === 1 ? url = 'services' : url = 'services?page=' + page
-                axios.get(url, { params: options }).then((response) => {
+                axios.get(url).then((response) => {
                     context.commit('updatePagination', response.data.meta)
                     context.commit('updateServices', response.data.data)
                     context.commit('updateLoading', false)

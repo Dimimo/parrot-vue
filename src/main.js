@@ -7,6 +7,9 @@ import App from './App'
 import { initialize } from './app-boot'
 import vuetify from './plugins/vuetify'
 import 'vuetify/dist/vuetify.min.css'
+import _ from 'lodash'
+Object.defineProperty(Vue.prototype, '$_', { value: _ })
+//  example with lodash: console.log(this.$_.isEmpty(null))
 
 Vue.config.productionTip = false
 

@@ -8,7 +8,7 @@
 <template>
   <div>
     <v-app>
-      <v-content>
+      <v-main>
         <the-header />
         <v-skeleton-loader
           class="mx-auto"
@@ -18,7 +18,7 @@
         >
           <router-view />
         </v-skeleton-loader>
-      </v-content>
+      </v-main>
     </v-app>
   </div>
 </template>

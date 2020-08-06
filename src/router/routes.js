@@ -99,6 +99,7 @@ export const routes = [
             {
                 path: ':id',
                 component: ServiceView,
+                params: true,
             },
         ],
     },
